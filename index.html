@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <title>Login</title>
     <style>
-         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-
         :root {
             --color-accent-rgb: rgb(72, 61, 139);
             --color-alt-rgb: rgb(137, 236, 150);
@@ -16,71 +17,73 @@
             --nav-height: calc(3rem + 2vh);
             --max-width: 1100px;
             --color-txt: darkslategray;
-            --color-accent: lightgreen; /*Color borde de inputs y separadores*/
+            --color-accent: lightgreen;
             --color-outline: darkseagreen;
             --color-white: #F0FDF1;
             --color-fill-btn: #24AF37;
             --color-fill-social-btn: #c6ebc7;
             --color-fill-social-svg: #006B0A;
+            --color-input: #DDFBE0;
             --color-dialog-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%), radial-gradient(84.04% 109.28% at 10.3% 12.14%, rgba(86, 201, 96, 0.5) 0%, rgba(198, 235, 199, 0) 98.5%);
         }
 
         body {
-            background-color: #0000004D;
-            color: var(--color-txt);
             display: flex;
-            flex: 1;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
-        section {
-            height: 100dvh;
-            width: 100%;
+        * {
+            font-family: 'Outfit', sans-serif;
+            color: var(--color-txt);
         }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: .75em;
-            width: 100%;
-        }
-        
-        ul {
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            gap: 1em;
-            justify-content: center;
-            padding: 0;
-            margin: 0;
-        }
-        
     </style>
 </head>
 <body>
-    <section>
-        <dialog-virto>
-            <community-logo slot="logo"></community-logo>
-            <form slot="action">
-                <label for="username">Enter your username</label>
-                <input-virto></input-virto>
-                <button-virto label="Continue"></button-virto>
-                <ul>
-                    <button-social></button-social>
-                    <button-social src="public/fb.svg"></button-social>
-                    <button-social src="public/x.svg"></button-social>
-                    <button-social src="public/apple.svg"></button-social>
-                    <button-social src="public/github.svg"></button-social>
-                </ul>
-            </form>
-        </dialog-virto>
-      
-    </section>
-    <script src="./dialog.js" defer></script>
+    <virto-button id="openDialogButton" label="Log in"></virto-button>
+
+    <virto-login id="org-name">
+
+    <virto-dialog id="step-1">
+        <img slot="logo" src="public/virto.svg" alt="Logo" width="50">
+        <h2 slot="title">Login to Virto</h2>
+        <form id="log-in">
+            <label>Enter your username</label>
+            <virto-input id="username" type="text" required aria-placeholder="Type a username"></virto-input>
+            <div slot="buttons">
+                <virto-button data-dialog="close" label="Close"></virto-button>
+                <virto-button data-dialog="next" label="Next"></virto-button>
+            </div>
+        </form>
+   </virto-dialog>
+
+   <virto-dialog id="step-2">
+        <img slot="logo" src="public/virto.svg" alt="Logo" width="50">
+        <h2 slot="title">Login to Virto</h2>
+        <form id="log-in">
+            <label>Enter your password</label>
+            <virto-input type="password" required aria-placeholder="*******"></virto-input>
+            <div slot="buttons">
+                <virto-button data-dialog="close" label="Close"></virto-button>
+            </div>
+        </form>
+    </virto-dialog>
+
+    </virto-login>
+
+    <script type="module">
+        import './dialog.js';
+        import './login.js'
+        const openButton = document.getElementById('openDialogButton');
+        const loginDialog = document.querySelector('#step-1');
+        customElements.whenDefined('virto-login').then(() => {
+            openButton.addEventListener('click', () => {
+                loginDialog.open();
+            });
+        });
+    </script>
     <script src="./input.js" defer></script>
     <script src="./button.js" defer></script>
-    <script src="./logo.js" defer></script>
-    <script src="./icon-button.js" defer></script>
-    </body>
+</body>
 </html>

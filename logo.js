@@ -1,9 +1,10 @@
 class Logo extends HTMLElement {
+    static TAG = 'community-logo'
     static css = `
         :host {
             all: initial;
             display: block;
-            width: clamp(100px, 10vw, 200px);
+            width: clamp(70px, 5vw, 200px);
             height: auto;
             display: flex;
             justify-content: center;
@@ -32,4 +33,4 @@ class Logo extends HTMLElement {
     }
 }
 
-customElements.define('community-logo', Logo);
+customElements.define(Logo.TAG, Logo);
